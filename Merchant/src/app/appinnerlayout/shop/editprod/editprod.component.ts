@@ -64,7 +64,6 @@ export class EditprodComponent implements OnInit {
 
   ngOnInit(): void {
     this.open(this.product);
-
     var url = document.URL;
     console.log(url)
     const myArray = url.split("=");
@@ -77,6 +76,7 @@ export class EditprodComponent implements OnInit {
   public images: any;
   public ogthumb:any;
   url: any;
+
   onselectFile(event:any){
     if(event.target.files){
       if(event.target.files.length != 0){
@@ -113,12 +113,9 @@ export class EditprodComponent implements OnInit {
   getProduct(id: any) {
     this.product._id = this.id
     this.http.post('http://165.22.50.213:3001/getoneproduct', this.product).subscribe((res: any) => {
-
-
       console.log(res);
       console.log(res['data'])
       this.productArr = res['data'];
-
       console.log(this.productArr);
 
       this.editProduct.name = res['data']['name']
@@ -142,8 +139,6 @@ export class EditprodComponent implements OnInit {
     this.http.get('http://165.22.50.213:3001/getallcategory').subscribe((res: any) => {
       this.categoryArr = res['data'];
       console.log(this.categoryArr)
-
-
     });
   }
 
@@ -180,7 +175,6 @@ export class EditprodComponent implements OnInit {
   }
 
   open(product: any) {
-
     this.editProduct = {
       _id: product._id,
       redemp: product.redemp,
@@ -194,9 +188,11 @@ export class EditprodComponent implements OnInit {
       merchantid: product.merchantid
     }
   }
+
   backnav() {
-  this.router.navigate[('/product')]
+    this.router.navigate[('/product')]
   }
+
   backto() {
     this.router.navigate[('/product')]
   }

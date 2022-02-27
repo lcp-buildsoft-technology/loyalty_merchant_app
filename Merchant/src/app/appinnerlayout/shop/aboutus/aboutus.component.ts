@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Buffer } from 'buffer';
 import { FormBuilder } from '@angular/forms';
-
 import SwiperCore, {
   Navigation,
   Pagination,
@@ -18,6 +17,7 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
   templateUrl: './aboutus.component.html',
   styleUrls: ['./aboutus.component.scss']
 })
+
 export class AboutusComponent implements OnInit {
 
   message:any;
@@ -36,7 +36,8 @@ export class AboutusComponent implements OnInit {
     description:'',
     thumbnailType:''
   }
-  public aboutus ={
+
+  public aboutus =  {
     _id:'',
     picture:'',
     description:'',

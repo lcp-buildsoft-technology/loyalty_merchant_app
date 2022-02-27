@@ -23,7 +23,8 @@ export class OutletlistComponent implements OnInit {
   constructor(private modalService: NgbModal, private http: HttpClient, private router: Router, private route: ActivatedRoute) { 
     this.srch = [...this.moutletArr];
   }
-  public moutlet={
+
+  public moutlet = {
     _id:'',
     shopname:'',
     address:'',
@@ -36,21 +37,22 @@ export class OutletlistComponent implements OnInit {
     operateday2:'',
     description:'',
     merchantid:''
-     };
-     public deletemoutlet={
-       _id:'',
-      shopname:'',
-      address:'',
-      phone: '',
-      whatsapp:'',
-      email:'',
-      operatehrsstart:'',
-      operatehrsend:'',
-      operateday1:'',
-      operateday2:'',
-      description:''
-      
-       }; 
+  };
+
+  public deletemoutlet = {
+    _id:'',
+    shopname:'',
+    address:'',
+    phone: '',
+    whatsapp:'',
+    email:'',
+    operatehrsstart:'',
+    operatehrsend:'',
+    operateday1:'',
+    operateday2:'',
+    description:''  
+  }; 
+
   ngOnInit(): void {
     this.getMoutlet();
     this.open(this.moutlet);
@@ -76,13 +78,14 @@ export class OutletlistComponent implements OnInit {
         console.log(this.outletArr);
     });
   }
+
   Transfer(id:any){
     var name= $("#deletebtn_"+id).attr('name')+"";
     console.log(name);
     console.log(id)
     $("#moutlet_name").val(name);
- 
   }
+
   DeleteMoutlet(moutlet:any){
     var id = $('#moutlet_name').val();
     this.moutlet._id =''+id+'';
@@ -95,7 +98,7 @@ export class OutletlistComponent implements OnInit {
       console.log(res);
       this.message = res;
       this.router.navigateByUrl('/outletlist')
-  });
+    });
   }
 
   open(moutlet:any) {
@@ -119,12 +122,13 @@ export class OutletlistComponent implements OnInit {
     const editout = "/editoutlet?id=" + moutlet._id;
     console.log(editout)
     this.router.navigateByUrl(editout)
-   }
-   detail(moutlet:any){
+  }
+
+  detail(moutlet:any){
     const outdet = "/outletdetail?id=" + moutlet._id;
     console.log(outdet)
     this.router.navigateByUrl(outdet)
-   }
+  }
 
   goto(){
     this.DeleteMoutlet(this.moutlet);

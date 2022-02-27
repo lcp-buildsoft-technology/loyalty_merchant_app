@@ -15,17 +15,17 @@ export class AppinnerlayoutComponent implements OnInit {
   ngAfterInit(): void{
   }
 
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    let header = document.getElementsByTagName('app-headerback')[0];
-    let main = document.getElementsByTagName('html')[0];
+  // @HostListener('window:scroll', [])
+  // onWindowScroll() {
+  //   let header = document.getElementsByTagName('app-headerback')[0];
+  //   let main = document.getElementsByTagName('html')[0];
 
-    if (main.scrollTop > 15 ) {      
-      header.classList.add('active');      
-    }else{
-      header.classList.remove('active');
-    }
-  }
+  //   if (main.scrollTop > 15 ) {      
+  //     header.classList.add('active');      
+  //   }else{
+  //     header.classList.remove('active');
+  //   }
+  // }
 
 }
 

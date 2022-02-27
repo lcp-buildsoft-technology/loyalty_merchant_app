@@ -148,6 +148,7 @@ export class BookeventComponent implements OnInit {
 
   getcheckedvalue(){
   }
+  
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {

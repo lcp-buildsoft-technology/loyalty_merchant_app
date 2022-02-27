@@ -40,7 +40,7 @@ export class AddfirstoutletComponent implements OnInit {
     this.srch = [...this.moutletArr];
   }
 
-  public moutlet={
+  public moutlet = {
     shopname:'',
     address:'',
     phone: '',
@@ -165,183 +165,182 @@ export class AddfirstoutletComponent implements OnInit {
     this.router.navigate[('/outletlist')]
   }
 
-getcheckedvalue(){
-}
+  getcheckedvalue(){
+  }
 
-private setCurrentLocation() {
-  if ('geolocation' in navigator) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.latitude = position.coords.latitude;
-      this.longitude = position.coords.longitude;
-      this.zoom = 8;
-      this.getAddress(this.latitude, this.longitude);
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 8;
+        this.getAddress(this.latitude, this.longitude);
+      });
+    }
+  }
+
+  getAddress(latitude: number, longitude: number) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results: { formatted_address: string; }[], status: string) => {
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 12;
+          this.address = results[0].formatted_address;
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+
     });
   }
-}
 
-getAddress(latitude: number, longitude: number) {
-  this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results: { formatted_address: string; }[], status: string) => {
-    if (status === 'OK') {
-      if (results[0]) {
-        this.zoom = 12;
-        this.address = results[0].formatted_address;
-      } else {
-        window.alert('No results found');
-      }
+  validation() {
+    var today = new Date();
+
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1
+    
+    var day = "";
+    var month = "";
+
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+    day = '0' + dd.toString();
     } else {
-      window.alert('Geocoder failed due to: ' + status);
+    day = dd.toString();
+    }
+    if (mm < 10) {
+    month = '0' + mm.toString();
+    } else {
+    month = mm.toString();
+    }
+    this.todayDate = yyyy + '-' + month + '-' + day;
+
+    //title
+    if (this.moutlet.shopname === '') {
+      this.valid['shopname'] = "*Please enter the shopname!";
+      this.error++;
+    }
+    else {
+      this.valid['shopname'] = ""
     }
 
-  });
-}
+    //detail
+    if (this.moutlet.address === '') {
+      this.valid['address'] = "*Please enter the address!";
+      this.error++;
+    }
+    else {
+      this.valid['address'] = ""
+    }
 
-validation() {
-  var today = new Date();
+    //merchant
+    if (this.moutlet.phone === '') {
+      this.valid['phone'] = "*Please enter phone number";
+      this.error++;
+    }
+    else if (!this.moutlet.phone.match(this.contactPattern) ) {
+      this.error++;
+    }
+    else {
+      this.valid['phone'] = ""
+    }
 
-  var dd = today.getDate();
-  var mm = today.getMonth() + 1
-  
-  var day = "";
-  var month = "";
+    //type
+    if (this.moutlet.whatsapp === '') {
+      this.valid['whatsapp'] = "*Please select a whatsapp!";
+      this.error++;
+    }
+    else if (!this.moutlet.whatsapp.match(this.whatsappPattern) ) {
+      this.error++;
+    } 
+    else {
+      this.valid['whatsapp'] = ""
+    }
 
-  var yyyy = today.getFullYear();
-  if (dd < 10) {
-  day = '0' + dd.toString();
-  } else {
-  day = dd.toString();
-  }
-  if (mm < 10) {
-  month = '0' + mm.toString();
-  } else {
-  month = mm.toString();
-  }
-  this.todayDate = yyyy + '-' + month + '-' + day;
+    //quantity
+    if (this.moutlet.email === '') {
+      this.valid['email'] = "*Please enter your email address!";
+      this.error++;
+    }
+    else if (!this.moutlet.email.match(this.emailPattern) ) {
+      this.error++;
+    }  
+    else {
+      this.valid['email'] = ""
+    }
 
-  //title
-  if (this.moutlet.shopname === '') {
-    this.valid['shopname'] = "*Please enter the shopname!";
-    this.error++;
-  }
-  else {
-    this.valid['shopname'] = ""
-  }
+    //tnc
+    if (this.moutlet.operatehrsstart === '') {
+      this.valid['operatehrsstart'] = "*Please enter operation start hour!";
+      this.error++;
+    }
+    else {
+      this.valid['operatehrsstart'] = ""
+    }
 
-  //detail
-  if (this.moutlet.address === '') {
-    this.valid['address'] = "*Please enter the address!";
-    this.error++;
-  }
-  else {
-    this.valid['address'] = ""
-  }
+    //start date
+    if (this.moutlet.operatehrsstart === '') {
+      this.valid['operatehrsstart'] = "*Please enter operation start hour!";
+      this.error++;
+    }
 
-  //merchant
-  if (this.moutlet.phone === '') {
-    this.valid['phone'] = "*Please enter phone number";
-    this.error++;
-  }
-  else if (!this.moutlet.phone.match(this.contactPattern) ) {
-    this.error++;
-  }
-  else {
-    this.valid['phone'] = ""
-  }
+    else {
+      this.valid['operatehrsstart'] = ""
+    }
 
-  //type
-  if (this.moutlet.whatsapp === '') {
-    this.valid['whatsapp'] = "*Please select a whatsapp!";
-    this.error++;
-  }
-  else if (!this.moutlet.whatsapp.match(this.whatsappPattern) ) {
-    this.error++;
-  } 
-  else {
-    this.valid['whatsapp'] = ""
-  }
+    //end date
+    if (this.moutlet.operatehrsend === '') {
+      this.valid['operatehrsend'] = "*End date is required!";
+      this.error++;
+    }
 
-  //quantity
-  if (this.moutlet.email === '') {
-    this.valid['email'] = "*Please enter your email address!";
-    this.error++;
-  }
-  else if (!this.moutlet.email.match(this.emailPattern) ) {
-    this.error++;
-  }  
-  else {
-    this.valid['email'] = ""
-  }
+    else {
+      this.valid['operatehrsend'] = ""
+    }
 
-  //tnc
-  if (this.moutlet.operatehrsstart === '') {
-    this.valid['operatehrsstart'] = "*Please enter operation start hour!";
-    this.error++;
-  }
-  else {
-    this.valid['operatehrsstart'] = ""
-  }
+    // operate day
+    
+    if (this.moutlet.operateday1 === '') {
+      this.valid['operateday1'] = "*Please enter operation day";
+      this.error++;
+    }
 
-  //start date
-  if (this.moutlet.operatehrsstart === '') {
-    this.valid['operatehrsstart'] = "*Please enter operation start hour!";
-    this.error++;
-  }
+    else {
+      this.valid['operateday1'] = ""
+    }
 
-  else {
-    this.valid['operatehrsstart'] = ""
-  }
+    //end date
+    if (this.moutlet.operateday2 === '') {
+      this.valid['operateday2'] = "*End date is required!";
+      this.error++;
+    }
 
-  //end date
-  if (this.moutlet.operatehrsend === '') {
-    this.valid['operatehrsend'] = "*End date is required!";
-    this.error++;
-  }
+    else {
+      this.valid['operateday2'] = ""
+    }
 
-  else {
-    this.valid['operatehrsend'] = ""
-  }
+    //status
+    if (this.moutlet.description === '') {
+      this.valid['description'] = "*Please select the description!";
+      this.error++;
+    }
+    else {
+      this.valid['description'] = ""
+    }
 
-  // operate day
-   
-   if (this.moutlet.operateday1 === '') {
-    this.valid['operateday1'] = "*Please enter operation day";
-    this.error++;
-  }
+    //discount
+    if (this.moutlet.slot === '') {
+      this.valid['slot'] = "*Please enter the slot!";
+      this.error++;
+    }
 
-  else {
-    this.valid['operateday1'] = ""
-  }
+    else {
+      this.valid['slot'] = ""
+    }
 
-  //end date
-  if (this.moutlet.operateday2 === '') {
-    this.valid['operateday2'] = "*End date is required!";
-    this.error++;
+    return this.valid;
   }
-
-  else {
-    this.valid['operateday2'] = ""
-  }
-
-  //status
-  if (this.moutlet.description === '') {
-    this.valid['description'] = "*Please select the description!";
-    this.error++;
-  }
-  else {
-    this.valid['description'] = ""
-  }
-
-  //discount
-  if (this.moutlet.slot === '') {
-    this.valid['slot'] = "*Please enter the slot!";
-    this.error++;
-  }
-
-  else {
-    this.valid['slot'] = ""
-  }
-
-  return this.valid;
-}
-
 
 }

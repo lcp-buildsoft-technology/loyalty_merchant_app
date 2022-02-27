@@ -30,21 +30,21 @@ export class BookingsettingsComponent implements OnInit {
     this.srch = [...this.BookingsettingsArr];
   }
 
-  public bookingsettings={
+  public bookingsettings = {
     day:[],
     stime: '',
     etime:'',
     slot:'',
   };
 
-  public editbookingsettings={
+  public editbookingsettings = {
     day:[],
     stime: '',
     etime:'',
     slot:'',
   };
 
-  public dateslot={
+  public dateslot = {
     outletid:"",
     slot:0,
     createddate:''

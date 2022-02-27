@@ -74,7 +74,7 @@ export class EditmyaccountComponent implements OnInit {
     thumbnailType:'',
   }
 
-  public merchantObj ={
+  public merchantObj = {
     _id:'',
     thumbnail:'',
     createdate:'',
@@ -140,7 +140,6 @@ export class EditmyaccountComponent implements OnInit {
   backnav() {
     this.router.navigate[('/myaccount')]
   }
-
 
   editMerchant(){
     this.addimage();
@@ -234,8 +233,7 @@ export class EditmyaccountComponent implements OnInit {
     }
   }
 
-  addimage()
-  {
+  addimage() {
     console.log("hi");
     const formData = new FormData();
     formData.append('file', this.images)

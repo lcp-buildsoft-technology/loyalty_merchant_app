@@ -132,6 +132,7 @@ export class EditoutletComponent implements OnInit {
   public ogthumb: any;
   public x :any
   url: any;
+  
   onselectFile(event: any) {
     if (event.target.files) {
       if (event.target.files.length != 0) {

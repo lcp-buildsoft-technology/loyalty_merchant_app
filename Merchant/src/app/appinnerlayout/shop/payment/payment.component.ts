@@ -54,12 +54,12 @@ export class PaymentComponent implements OnInit {
     thumbnail: '',
     quantity: '',
     discount: '',
-
     minspend: '',
     termsandcondition: '',
     status: '',
     merchantid: ''
   };
+
   public onvoucher: any = {
     _id: '',
     title: '',
@@ -73,6 +73,7 @@ export class PaymentComponent implements OnInit {
     termsandcondition: '',
     status: ''
   };
+
   public upvoucher: any = {
     _id: '',
     title: '',
@@ -82,11 +83,11 @@ export class PaymentComponent implements OnInit {
     thumbnail: '',
     quantity: '',
     discount: '',
-
     minspend: '',
     termsandcondition: '',
     status: ''
   };
+
   public hisvoucher: any = {
     _id: '',
     title: '',
@@ -109,7 +110,6 @@ export class PaymentComponent implements OnInit {
     thumbnail: '',
     quantity: '',
     discount: '',
-
     minspend: '',
     termsandcondition: '',
     status: ''

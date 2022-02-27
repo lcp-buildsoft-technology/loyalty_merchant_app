@@ -45,7 +45,7 @@ export class bookingComponent implements OnInit {
     this.srch = [...this.venueArr];
   }
 
-  public venue={
+  public venue = {
     firstname:'',
     _value: '',
     date:'',
@@ -56,13 +56,13 @@ export class bookingComponent implements OnInit {
     arrv :''
   };
      
-  public image={
+  public image = {
     thumbnail:'',
     thumbnailType:'',
     shopname:''
   };
      
-  public todayvenue={
+  public todayvenue = {
     firstname:'',
     _value: '',
     date:'',
@@ -73,7 +73,7 @@ export class bookingComponent implements OnInit {
     arrv:''
   };
 
-  public hisvenue={
+  public hisvenue = {
     firstname:'',
     _value: '',
     date:'',
@@ -84,7 +84,7 @@ export class bookingComponent implements OnInit {
     arrv:''     
   };
 
-  public upvenue={
+  public upvenue = {
     _id:'',
     firstname:'',
     _value: '',
@@ -225,15 +225,12 @@ export class bookingComponent implements OnInit {
       '_id':id,
       status:"Cancelled"
     };
-
-    
     this.http.post('http://165.22.50.213:3001/editvenue', data).subscribe(res =>{
       console.log(res);
     });
- 
     this.router.navigate[('/booking')]
-
   }
+
   clickcancel(){
     var id = $('#venue_name').val();
     this.upvenue._id =''+id+'';
@@ -242,7 +239,5 @@ export class bookingComponent implements OnInit {
       '_id':id
     };
     console.log(data)  
-    
   }
-  
 }

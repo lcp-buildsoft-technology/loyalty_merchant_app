@@ -38,7 +38,8 @@ export class OutletsettingsComponent implements OnInit {
   constructor(private modalService: NgbModal, private http: HttpClient, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private router: Router,private route:ActivatedRoute)  { 
     this.srch = [...this.moutletArr];
   }
-  public moutlet={
+
+  public moutlet = {
     shopname:'',
     address:'',
     phone: '',
@@ -54,7 +55,8 @@ export class OutletsettingsComponent implements OnInit {
     latlong:'',
     avgrating:'',
     state:''
-     };
+  };
+
   ngOnInit(): void {
     this.getcheckedvalue();
   
@@ -85,6 +87,7 @@ export class OutletsettingsComponent implements OnInit {
   }
 
   url=("../../../../assets/img/blankimage.png");
+
   onselectFile(e:any){
     if(e.target.files){
       const file = e.target.files[0];
@@ -102,250 +105,249 @@ export class OutletsettingsComponent implements OnInit {
   }
 
   sendData(){
-  this.error =0;
-  var val:any =[];
+    this.error =0;
+    var val:any =[];
 
-  this.valid = this.validation();
+    this.valid = this.validation();
 
-  console.log(this.error)
-  if(this.error < 1){
-    this.addimage();
+    console.log(this.error)
+    if(this.error < 1){
+      this.addimage();
+    }
   }
-}
 
-addimage(){
-  const formData = new FormData();
-  this.moutlet.address = ''+$('#address').val()+'';
-  this.moutlet.latlong = this.latitude.toString() + ',' + this.longitude.toString();
-  var mlogin =JSON.parse(localStorage.getItem('Mlogin') !);
-  formData.append('shopname', this.moutlet.shopname)
-  formData.append('address', this.moutlet.address)
-  formData.append('phone', this.moutlet.phone)
-  formData.append('file', this.images)
-  formData.append('whatsapp', this.moutlet.whatsapp)
-  formData.append('email', this.moutlet.email)
-  formData.append('operatehrsstart', this.moutlet.operatehrsstart)
-  formData.append('operatehrsend', this.moutlet.operatehrsend)
-  formData.append('operateday1', this.moutlet.operateday1)
-  formData.append('operateday2', this.moutlet.operateday2)
-  formData.append('description', this.moutlet.description)
-  formData.append('state', this.moutlet.state)
-  formData.append('slot', this.moutlet.slot)
-  formData.append('merchantid', mlogin.merchantid)
-  formData.append('latlong', this.moutlet.latlong)
-  formData.forEach(file => console.log("File: ", file));
-  console.log(formData)
-  this.http.post('http://165.22.50.213:3001/upmoutletandimage', formData).subscribe(res =>{
-    console.log(res);
-    this.message = res;
-    if(this.message['success'] == false){
-      
-    }
-    else{
-      this.router.navigate(['/outletlist'])
-    }
- 
-});
-}
-registerOutlet(moutlet:any){
-  var mlogin =JSON.parse(localStorage.getItem('Mlogin') !);
-  moutlet.merchantid= mlogin.merchantid
-  console.log(moutlet);
-  this.moutlet.address = ''+$('#address').val()+'';
-  this.moutlet.latlong = this.latitude.toString() + ',' + this.longitude.toString();
-  console.log(this.moutlet.latlong)
- this.http.post('http://165.22.50.213:3001/addmoutlet', moutlet).subscribe(res =>{
-     console.log(res);
-     this.message = res;
- });
-this.router.navigate(['/outletlist'])
-
-}
-
-getcheckedvalue(){
-
-}
-private setCurrentLocation() {
-  if ('geolocation' in navigator) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.latitude = position.coords.latitude;
-      this.longitude = position.coords.longitude;
-      this.zoom = 8;
-      this.getAddress(this.latitude, this.longitude);
+  addimage(){
+    const formData = new FormData();
+    this.moutlet.address = ''+$('#address').val()+'';
+    this.moutlet.latlong = this.latitude.toString() + ',' + this.longitude.toString();
+    var mlogin =JSON.parse(localStorage.getItem('Mlogin') !);
+    formData.append('shopname', this.moutlet.shopname)
+    formData.append('address', this.moutlet.address)
+    formData.append('phone', this.moutlet.phone)
+    formData.append('file', this.images)
+    formData.append('whatsapp', this.moutlet.whatsapp)
+    formData.append('email', this.moutlet.email)
+    formData.append('operatehrsstart', this.moutlet.operatehrsstart)
+    formData.append('operatehrsend', this.moutlet.operatehrsend)
+    formData.append('operateday1', this.moutlet.operateday1)
+    formData.append('operateday2', this.moutlet.operateday2)
+    formData.append('description', this.moutlet.description)
+    formData.append('state', this.moutlet.state)
+    formData.append('slot', this.moutlet.slot)
+    formData.append('merchantid', mlogin.merchantid)
+    formData.append('latlong', this.moutlet.latlong)
+    formData.forEach(file => console.log("File: ", file));
+    console.log(formData)
+    this.http.post('http://165.22.50.213:3001/upmoutletandimage', formData).subscribe(res =>{
+      console.log(res);
+      this.message = res;
+      if(this.message['success'] == false){
+        
+      }
+      else{
+        this.router.navigate(['/outletlist'])
+      }
     });
   }
-}
 
-getAddress(latitude: number, longitude: number) {
-  this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results: { formatted_address: string; }[], status: string) => {
-    if (status === 'OK') {
-      if (results[0]) {
-        this.zoom = 12;
-        this.address = results[0].formatted_address;
+  registerOutlet(moutlet:any){
+    var mlogin =JSON.parse(localStorage.getItem('Mlogin') !);
+    moutlet.merchantid= mlogin.merchantid
+    console.log(moutlet);
+    this.moutlet.address = ''+$('#address').val()+'';
+    this.moutlet.latlong = this.latitude.toString() + ',' + this.longitude.toString();
+    console.log(this.moutlet.latlong)
+    this.http.post('http://165.22.50.213:3001/addmoutlet', moutlet).subscribe(res =>{
+      console.log(res);
+      this.message = res;
+    });
+    this.router.navigate(['/outletlist'])
+  }
+
+  getcheckedvalue(){
+  }
+
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 8;
+        this.getAddress(this.latitude, this.longitude);
+      });
+    }
+  }
+
+  getAddress(latitude: number, longitude: number) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results: { formatted_address: string; }[], status: string) => {
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 12;
+          this.address = results[0].formatted_address;
+        } else {
+          window.alert('No results found');
+        }
       } else {
-        window.alert('No results found');
+        window.alert('Geocoder failed due to: ' + status);
       }
+
+    });
+  }
+
+  validation() {
+    var today = new Date();
+              
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1
+
+    var day = "";
+    var month = "";
+
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+    day = '0' + dd.toString();
     } else {
-      window.alert('Geocoder failed due to: ' + status);
+    day = dd.toString();
+    }
+    if (mm < 10) {
+    month = '0' + mm.toString();
+    } else {
+    month = mm.toString();
+    }
+    this.todayDate = yyyy + '-' + month + '-' + day;
+
+    //title
+    if (this.moutlet.shopname === '') {
+      this.valid['shopname'] = "*Please enter the shopname!";
+      this.error++;
+    }
+    else {
+      this.valid['shopname'] = ""
     }
 
-  });
-}
+    //detail
+    if (this.moutlet.address === '') {
+      this.valid['address'] = "*Please enter the address!";
+      this.error++;
+    }
+    else {
+      this.valid['address'] = ""
+    }
 
-validation() {
-  var today = new Date();
-             
-  var dd = today.getDate();
-  var mm = today.getMonth() + 1
+    if (this.moutlet.state === '') {
+      this.valid['state'] = "*Please enter the state!";
+      this.error++;
+    }
+    else {
+      this.valid['state'] = ""
+    }
+    //merchant
+    if (this.moutlet.phone === '') {
+      this.valid['phone'] = "*Please enter phone number";
+      this.error++;
+    }
+    else if (!this.moutlet.phone.match(this.contactPattern) ) {
+      this.error++;
+    }
+    else {
+      this.valid['phone'] = ""
+    }
 
-  var day = "";
-  var month = "";
+    //type
+    if (this.moutlet.whatsapp === '') {
+      this.valid['whatsapp'] = "*Please select a whatsapp!";
+      this.error++;
+    }
+    else if (!this.moutlet.whatsapp.match(this.whatsappPattern) ) {
+      this.error++;
+    } 
+    else {
+      this.valid['whatsapp'] = ""
+    }
 
-  var yyyy = today.getFullYear();
-  if (dd < 10) {
-  day = '0' + dd.toString();
-  } else {
-  day = dd.toString();
-  }
-  if (mm < 10) {
-  month = '0' + mm.toString();
-  } else {
-  month = mm.toString();
-  }
-  this.todayDate = yyyy + '-' + month + '-' + day;
+    //quantity
+    if (this.moutlet.email === '') {
+      this.valid['email'] = "*Please enter your email address!";
+      this.error++;
+    }
+    else if (!this.moutlet.email.match(this.emailPattern) ) {
+      this.error++;
+    }  
+    else {
+      this.valid['email'] = ""
+    }
 
-  //title
-  if (this.moutlet.shopname === '') {
-    this.valid['shopname'] = "*Please enter the shopname!";
-    this.error++;
-  }
-  else {
-    this.valid['shopname'] = ""
-  }
+    //tnc
+    if (this.moutlet.operatehrsstart === '') {
+      this.valid['operatehrsstart'] = "*Please enter operation start hour!";
+      this.error++;
+    }
+    else {
+      this.valid['operatehrsstart'] = ""
+    }
 
-  //detail
-  if (this.moutlet.address === '') {
-    this.valid['address'] = "*Please enter the address!";
-    this.error++;
-  }
-  else {
-    this.valid['address'] = ""
-  }
+    //start date
+    if (this.moutlet.operatehrsstart === '') {
+      this.valid['operatehrsstart'] = "*Please enter operation start hour!";
+      this.error++;
+    }
 
-  if (this.moutlet.state === '') {
-    this.valid['state'] = "*Please enter the state!";
-    this.error++;
-  }
-  else {
-    this.valid['state'] = ""
-  }
-  //merchant
-  if (this.moutlet.phone === '') {
-    this.valid['phone'] = "*Please enter phone number";
-    this.error++;
-  }
-  else if (!this.moutlet.phone.match(this.contactPattern) ) {
-    this.error++;
-  }
-  else {
-    this.valid['phone'] = ""
-  }
+    else {
+      this.valid['operatehrsstart'] = ""
+    }
 
-  //type
-  if (this.moutlet.whatsapp === '') {
-    this.valid['whatsapp'] = "*Please select a whatsapp!";
-    this.error++;
-  }
-  else if (!this.moutlet.whatsapp.match(this.whatsappPattern) ) {
-    this.error++;
-  } 
-  else {
-    this.valid['whatsapp'] = ""
-  }
+    //end date
+    if (this.moutlet.operatehrsend === '') {
+      this.valid['operatehrsend'] = "*End date is required!";
+      this.error++;
+    }
 
-  //quantity
-  if (this.moutlet.email === '') {
-    this.valid['email'] = "*Please enter your email address!";
-    this.error++;
-  }
-  else if (!this.moutlet.email.match(this.emailPattern) ) {
-    this.error++;
-  }  
-  else {
-    this.valid['email'] = ""
-  }
+    else {
+      this.valid['operatehrsend'] = ""
+    }
 
-  //tnc
-  if (this.moutlet.operatehrsstart === '') {
-    this.valid['operatehrsstart'] = "*Please enter operation start hour!";
-    this.error++;
-  }
-  else {
-    this.valid['operatehrsstart'] = ""
-  }
+    // operate day
+    
+    if (this.moutlet.operateday1 === '') {
+      this.valid['operateday1'] = "*Please enter operation day";
+      this.error++;
+    }
 
-  //start date
-  if (this.moutlet.operatehrsstart === '') {
-    this.valid['operatehrsstart'] = "*Please enter operation start hour!";
-    this.error++;
-  }
+    else {
+      this.valid['operateday1'] = ""
+    }
 
-  else {
-    this.valid['operatehrsstart'] = ""
-  }
+    //end date
+    if (this.moutlet.operateday2 === '') {
+      this.valid['operateday2'] = "*End date is required!";
+      this.error++;
+    }
 
-  //end date
-  if (this.moutlet.operatehrsend === '') {
-    this.valid['operatehrsend'] = "*End date is required!";
-    this.error++;
-  }
+    else {
+      this.valid['operateday2'] = ""
+    }
 
-  else {
-    this.valid['operatehrsend'] = ""
-  }
+    //status
+    if (this.moutlet.description === '') {
+      this.valid['description'] = "*Please select the description!";
+      this.error++;
+    }
+    else {
+      this.valid['description'] = ""
+    }
 
-  // operate day
-   
-   if (this.moutlet.operateday1 === '') {
-    this.valid['operateday1'] = "*Please enter operation day";
-    this.error++;
-  }
+    //discount
+    if (this.moutlet.slot === '') {
+      this.valid['slot'] = "*Please enter the slot!";
+      this.error++;
+    }
 
-  else {
-    this.valid['operateday1'] = ""
-  }
+    else {
+      this.valid['slot'] = ""
+    }
 
-  //end date
-  if (this.moutlet.operateday2 === '') {
-    this.valid['operateday2'] = "*End date is required!";
-    this.error++;
+    return this.valid;
   }
-
-  else {
-    this.valid['operateday2'] = ""
-  }
-
-  //status
-  if (this.moutlet.description === '') {
-    this.valid['description'] = "*Please select the description!";
-    this.error++;
-  }
-  else {
-    this.valid['description'] = ""
-  }
-
-  //discount
-  if (this.moutlet.slot === '') {
-    this.valid['slot'] = "*Please enter the slot!";
-    this.error++;
-  }
-
-  else {
-    this.valid['slot'] = ""
-  }
-
-  return this.valid;
-}
 
 
 }
